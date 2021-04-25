@@ -1,0 +1,1287 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
+<fdm_config name="BR1-mk3" version="2.0" release="ALPHA"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
+
+  <fileheader>
+    <author> Team-4, modified from Aeromatic v 0.96 </author>
+    <filecreationdate>2021-03-16</filecreationdate>
+    <version>$Revision: 1.4 $</version>
+    <description> Models a BR1. </description>
+  </fileheader>
+
+  <!--
+  File:     BR1-mk3.xml
+  Inputs:
+    name:          BR1_mk3
+    type:          two-engine passenger aircraft
+    max weight:    24857 lb
+    wing span:     63.79 ft
+    length:        54.134 ft
+    wing area:     452.084 sq-ft
+    gear type:     tricycle
+    castering:
+    retractable?:  yes
+    # engines:     2
+    engine type:   turbine
+    engine layout: wings
+    yaw damper?    yes
+  Outputs:
+    wing loading:  54.98 lb/sq-ft
+    payload:       4811.6 lbs
+    CL-alpha:      3.6 per radian
+    CL-0:          0.08
+    CL-max:        1
+    CD-0:          0.024
+    K:             0.12
+
+-->
+
+  <metrics>
+    <wingarea  unit="FT2">  452.08 </wingarea>
+    <wingspan  unit="FT" >   63.79 </wingspan>
+    <wing_incidence>          3.75 </wing_incidence>
+    <chord     unit="FT" >    7.09 </chord>
+    <htailarea unit="FT2">  118.53 </htailarea>
+    <htailarm  unit="FT" >   25.89 </htailarm>
+    <vtailarea unit="FT2">  115.67 </vtailarea>
+    <vtailarm  unit="FT" >   18.95 </vtailarm>
+    <location name="AERORP" unit="IN">
+      <x> 338.97 </x>
+      <y>   0.00 </y>
+      <z>   0.00 </z>
+    </location>
+    <location name="EYEPOINT" unit="IN">
+      <x> 129.92 </x>
+      <y>   0.00 </y>
+      <z>  38.00 </z>
+    </location>
+    <location name="VRP" unit="IN">
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </location>
+  </metrics>
+
+  <mass_balance>
+    <ixx unit="SLUG*FT2">  33757 </ixx>
+    <iyy unit="SLUG*FT2">    67050 </iyy>
+    <izz unit="SLUG*FT2">   93000 </izz>
+    <emptywt unit="LBS" >     18240 </emptywt>
+    <location name="CG" unit="IN">
+      <x> 338.97 </x>
+      <y>   0.00 </y>
+      <z> -16.24 </z>
+    </location>
+    <pointmass name="Payload">
+      <description> 4812 LBS + full (5145 LBS) fuel should bring model up to entered max weight</description>
+      <weight unit="LBS">   0 </weight>
+      <location name="POINTMASS" unit="IN">
+        <x> 338.97 </x>
+        <y>   0.00 </y>
+        <z> -16.24 </z>
+      </location>
+    </pointmass>
+  </mass_balance>
+
+  <ground_reactions>
+
+    <contact type="BOGEY" name="NOSE">
+      <location unit="IN">
+        <x>  84.45 </x>
+        <y>   0.00 </y>
+        <z> -77.95 </z>
+      </location>
+      <static_friction>  0.80 </static_friction>
+      <dynamic_friction> 0.50 </dynamic_friction>
+      <rolling_friction> 0.02 </rolling_friction>
+      <spring_coeff unit="LBS/FT">       7457.10 </spring_coeff>
+      <damping_coeff unit="LBS/FT/SEC">  3728.55 </damping_coeff>
+      <max_steer unit="DEG"> 5.00 </max_steer>
+      <brake_group>NONE</brake_group>
+      <retractable>1</retractable>
+    </contact>
+
+    <contact type="BOGEY" name="LEFT_MAIN">
+      <location unit="IN">
+        <x> 352.53 </x>
+        <y> -68.89 </y>
+        <z> -77.95 </z>
+      </location>
+      <static_friction>  0.80 </static_friction>
+      <dynamic_friction> 0.50 </dynamic_friction>
+      <rolling_friction> 0.02 </rolling_friction>
+      <spring_coeff unit="LBS/FT">      24857.00 </spring_coeff>
+      <damping_coeff unit="LBS/FT/SEC"> 12428.50 </damping_coeff>
+      <max_steer unit="DEG">0</max_steer>
+      <brake_group>LEFT</brake_group>
+      <retractable>1</retractable>
+    </contact>
+
+    <contact type="BOGEY" name="RIGHT_MAIN">
+      <location unit="IN">
+        <x> 352.53 </x>
+        <y>  68.89 </y>
+        <z> -77.95 </z>
+      </location>
+      <static_friction>  0.80 </static_friction>
+      <dynamic_friction> 0.50 </dynamic_friction>
+      <rolling_friction> 0.02 </rolling_friction>
+      <spring_coeff unit="LBS/FT">      24857.00 </spring_coeff>
+      <damping_coeff unit="LBS/FT/SEC"> 12428.50 </damping_coeff>
+      <max_steer unit="DEG">0</max_steer>
+      <brake_group>RIGHT</brake_group>
+      <retractable>1</retractable>
+    </contact>
+
+    <contact type="STRUCTURE" name="LEFT_WING">
+      <location unit="IN">
+        <x> 338.97 </x>
+        <y> -31.89 </y>
+        <z> -16.24 </z>
+      </location>
+      <static_friction>  1.00 </static_friction>
+      <dynamic_friction> 1.00 </dynamic_friction>
+      <spring_coeff unit="LBS/FT">      24857.00 </spring_coeff>
+      <damping_coeff unit="LBS/FT/SEC"> 24857.00 </damping_coeff>
+    </contact>
+
+    <contact type="STRUCTURE" name="RIGHT_WING">
+      <location unit="IN">
+        <x> 338.97 </x>
+        <y>  31.89 </y>
+        <z> -16.24 </z>
+      </location>
+      <static_friction>  1.00 </static_friction>
+      <dynamic_friction> 1.00 </dynamic_friction>
+      <spring_coeff unit="LBS/FT">      24857.00 </spring_coeff>
+      <damping_coeff unit="LBS/FT/SEC"> 24857.00 </damping_coeff>
+    </contact>
+
+  </ground_reactions>
+
+  <flight_control>
+    <property value="280" description="heading command">ap/heading-cmd-deg</property>
+    <property value="0" description="enable roll loop">ap/roll-enable</property>
+    <property value="0" description="enable pitch loop">ap/pitch-enable</property>
+    <property value="0" description="enable yaw loop">ap/yaw-enable</property>
+    <property value="0" description="enable auto gear deployment">ap/gear-enable</property>
+    <property value="0" description="enable altitude loop">ap/h-enable</property>
+    <property value="596" description="altitude above sea level setpoint ft">ap/h-sl-cmd-ft</property>
+    <property value="600" description="velocity cmd">ap/v-cmd-fps</property> <!-- command for change in velocity requirement-->
+
+    <function name="ap/engine-roll-mix">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0   .2
+                100 .2
+                200 0
+                300 0
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/engine-pitch-mix">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0	.2
+				100 0.2
+                200 0.1
+				300 0
+            </tableData>
+        </table>
+    </function>
+
+	<function name="ap/aero-moment-mix">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0	0
+				100 0.25
+                200 .75
+				300	1
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/heading-error-to-phi-deg-cmd">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                100 0
+                200 3
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/engine-yaw-mix">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0	1
+				100 0.5
+                200 0
+				300 0
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/lift-fan-thrust-mix">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                100 1
+				250 1  <!-- modivied from Goppert's-->
+                300 0
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/engine-thrust-mix">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0   1
+            </tableData>
+        </table>
+    </function>
+
+    <channel name="Gear">
+      <pure_gain>
+        <input>gear/gear-cmd-norm</input>
+        <gain>1</gain>
+        <output>gear/gear-pos-norm</output>
+      </pure_gain>
+    </channel>
+
+    <function name="ap/kp-roll">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0   .16
+                400  0.15
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/kd-roll">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0  0.12
+                400 0.03
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/kp-pitch">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                300 0.12
+                400 .2
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/kd-pitch">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                300  0.1
+                400  0.05
+            </tableData>
+        </table>
+    </function>
+
+
+    <function name="ap/kp-yaw">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0   0.01
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/kd-yaw">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0  0.02
+            </tableData>
+        </table>
+    </function>
+
+
+    <function name="ap/kp-h">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                200   0.25
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/kd-h">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                200   2
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/aileron-trim">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                150 0
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/elevator-trim">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                100 0.03
+                200 0.08
+                300 0.15
+                400 0.15
+                500 0.15
+                600 0.15
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/rudder-trim">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+                0   0 <!--may be a bad idea. Was @ 0-->
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/throttle-trim">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+              0   0.864
+              100 0.836
+              200 0.698
+              300 0.554
+              400 0.428
+              500 0.449
+              600 0.478
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/theta-deg-trim">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+               0  0
+              10  0.66
+              50  5.7
+              250 5.7
+              400 3.48
+              500 1.97
+              600 1.13
+            </tableData>
+        </table>
+    </function>
+
+    <function name="ap/thrust-angle-trim">
+        <table>
+            <independentVar>velocities/vt-fps</independentVar>
+            <tableData>
+              0   1.57
+              100 1.1463170916873893
+              200 0.6827786808527123
+              300 0.0011006337565355603
+              400 1.0415072139887315e-08
+              500 0.052937354599632766
+              600 0.026207264942735602
+            </tableData>
+        </table>
+    </function>
+
+    <!-- just used to control animation in flightgear -->
+
+    <function name="ap/spoiler-tbl-norm">
+        <table>
+            <independentVar>propulsion/engine/pitch-angle-rad</independentVar>
+            <tableData>
+                0  0
+                1.57 1
+            </tableData>
+        </table>
+    </function>
+    <channel name="Spoiler">
+      <pure_gain>
+        <input>ap/spoiler-tbl-norm</input>
+        <gain>1</gain>
+        <output>fcs/spoiler-pos-norm</output>
+      </pure_gain>
+    </channel>
+
+    <function name="ap/gear-deploy">
+      <table>
+        <independentVar>position/h-agl-ft</independentVar>
+        <tableData>
+          0  1
+          20 1
+          30 0
+          40 0
+        </tableData>
+      </table>
+    </function>
+
+    <channel name="Gear">
+      <lag_filter name="ap/gear-servo">
+        <input>ap/gear-deploy</input>
+        <c1>1.0</c1>
+        <output>ap/gear-cmd-norm</output>
+      </lag_filter>
+      <switch>
+        <default value="gear/gear-cmd-norm"/>
+        <test value="ap/gear-deploy">
+          ap/gear-enable == 1
+        </test>
+        <output>gear/gear-pos-norm</output>
+      </switch>
+    </channel>
+
+    <channel name="Roll">
+      <summer name="ap/heading-error-deg">
+        <!-- runway  heading  note, TODO handle angle wrap-->
+        <input>ap/heading-cmd-deg</input>
+        <input>-attitude/psi-deg</input>
+      </summer>
+      <pure_gain name="ap/phi-deg-cmd">
+        <input>ap/heading-error-deg</input>
+        <gain>ap/heading-error-to-phi-deg-cmd</gain>
+        <clipto>
+            <min>-30</min>
+            <max>30</max>
+        </clipto>
+      </pure_gain>
+      <summer name="ap/roll-error">
+        <input>ap/phi-deg-cmd</input>
+        <input>-attitude/phi-deg</input>
+      </summer>
+      <pid name="ap/roll-pid">
+        <input>ap/roll-error</input>
+        <kp>ap/kp-roll</kp>
+        <ki> 0 </ki>
+        <kd>ap/kd-roll</kd>
+        <clipto>
+            <min>-0.1</min>
+            <max>0.1</max>
+        </clipto>
+      </pid>
+      <summer name="ap/roll-auto">
+        <input>ap/aileron-trim</input>
+        <input>ap/roll-pid</input>
+      </summer>
+      <switch name="ap/aileron-cmd-norm">
+        <default value="fcs/aileron-cmd-norm"/>
+        <test value="ap/roll-auto">
+          ap/roll-enable == 1
+        </test>
+      </switch>
+    </channel>
+
+    <channel name="Pitch">
+      <!-- Nick added velocity to pitch relationship for commanded speed up or slow down-->
+      <summer name="ap/velocity-error">
+        <input>ap/v-cmd-fps</input>
+        <input>-velocities/vt-fps</input>
+      </summer>
+      <summer name="ap/pitch-error">
+        <input>ap/theta-deg-trim</input>
+        <input>ap/theta-auto</input>
+        <input>-attitude/theta-deg</input>
+      </summer>
+
+
+      <pid name="ap/pitch-pid">
+        <input>ap/pitch-error</input>
+        <kp>ap/kp-pitch</kp>
+        <ki> 0 </ki>
+        <kd>ap/kd-pitch</kd>
+        <clipto>
+            <min>-1</min>
+            <max>1</max>
+        </clipto>
+      </pid>
+      <summer name="ap/pitch-auto">
+        <input>ap/elevator-trim</input>
+        <input>ap/pitch-pid</input>
+      </summer>
+      <switch name="ap/elevator-cmd-norm">
+        <default value="fcs/elevator-cmd-norm"/>
+        <test value="ap/pitch-auto">
+          ap/pitch-enable == 1
+        </test>
+      </switch>
+    </channel>
+
+    <channel name="Yaw">
+      <pid name="ap/yaw-pid">
+        <input>-velocities/r-rad_sec</input>
+        <kp>ap/kp-yaw</kp>
+        <ki> 0 </ki>
+        <kd>ap/kd-yaw</kd>
+        <clipto>
+            <min>-0.1</min>
+            <max>0.1</max>
+        </clipto>
+      </pid>
+      <summer name="ap/yaw-auto">
+        <input>ap/rudder-trim</input>
+        <input>ap/yaw-pid</input>
+      </summer>
+      <switch name="ap/rudder-cmd-norm">
+        <default value="fcs/rudder-cmd-norm"/>
+        <test value="ap/yaw-auto">
+          ap/yaw-enable == 1
+        </test>
+      </switch>
+    </channel>
+
+    <channel name="Altitude">
+      <summer name="ap/h-error">
+        <input>ap/h-sl-cmd-ft</input>
+        <input>-position/h-sl-ft</input>
+      </summer>
+      <pid name="ap/h-pid">
+        <input>ap/h-error</input>
+        <kp>ap/kp-h</kp>
+        <ki>0</ki>
+        <kd>ap/kd-h</kd>
+        <clipto>
+            <min>-0.1</min> <!--low numbers will fly above target-->
+            <max>0.1</max>
+        </clipto>
+      </pid>
+      <summer name="ap/h-auto">
+        <input>ap/throttle-trim</input>
+        <input>ap/h-pid</input>
+        <clipto>
+            <min>-1</min>
+            <max>1</max>
+        </clipto>
+      </summer>
+      <switch name="ap/throttle-cmd-norm">
+        <default value="fcs/throttle-cmd-norm"/>
+        <test value="ap/h-auto">
+          ap/h-enable == 1
+        </test>
+      </switch>
+    </channel>
+
+<!--Aerosurfaces-->
+    <channel name="Elevator">
+      <!--Nick added gain for throttle command speed or slow down HERE -->
+      <pure_gain name="ap/theta-auto">
+        <input>ap/velocity-error</input>
+        <gain>0.1</gain>
+        <clipto>
+            <min>-0.2</min>
+            <max>0.2</max>
+        </clipto>
+          <output>fcs/elevator-pos-deg </output>
+      </pure_gain>
+
+
+      <pure_gain>
+        <input>ap/elevator-cmd-norm</input>
+        <gain>-ap/aero-moment-mix</gain>
+        <clipto>
+            <min>-0.5</min>
+            <max>0.5</max>
+        </clipto>
+        <output>fcs/elevator-pos-norm</output>
+      </pure_gain>
+      <aerosurface_scale>
+        <input>fcs/elevator-pos-norm</input>
+        <range>
+          <min>-50</min>
+          <max>50</max>
+        </range>
+        <output>fcs/elevator-pos-deg</output>
+      </aerosurface_scale>
+    </channel>
+
+    <channel name="Left Aileron">
+      <pure_gain>
+        <input>ap/aileron-cmd-norm</input>
+        <gain>ap/aero-moment-mix</gain>
+        <output>fcs/left-aileron-pos-norm</output>
+        <clipto>
+            <min>-0.5</min>
+            <max>0.5</max>
+        </clipto>
+      </pure_gain>
+      <aerosurface_scale>
+        <input>fcs/left-aileron-pos-norm</input>
+        <range>
+          <min>-50</min>
+          <max>50</max>
+        </range>
+        <output>fcs/left-aileron-pos-deg</output>
+      </aerosurface_scale>
+    </channel>
+
+    <channel name="Right Aileron">
+      <pure_gain>
+        <input>ap/aileron-cmd-norm</input>
+        <gain>-ap/aero-moment-mix</gain>
+        <output>fcs/right-aileron-pos-norm</output>
+        <clipto>
+            <min>-0.5</min>
+            <max>0.5</max>
+        </clipto>
+      </pure_gain>
+      <aerosurface_scale>
+        <input>fcs/right-aileron-pos-norm</input>
+        <range>
+          <min>-50</min>
+          <max>50</max>
+        </range>
+        <output>fcs/right-aileron-pos-deg</output>
+      </aerosurface_scale>
+    </channel>
+
+    <channel name="Rudder">
+      <pure_gain>
+        <input>ap/rudder-cmd-norm</input>
+        <gain>ap/aero-moment-mix</gain>
+        <output>fcs/rudder-pos-norm</output>
+        <clipto>
+            <min>-0.5</min>
+            <max>0.5</max>
+        </clipto>
+      </pure_gain>
+      <aerosurface_scale>
+        <input>fcs/rudder-pos-norm</input>
+        <range>
+          <min>-50</min>
+          <max>50</max>
+        </range>
+        <output>fcs/rudder-pos-deg</output>
+      </aerosurface_scale>
+    </channel>
+
+<!-- Left Engine -->
+    <channel name="Engine0">
+      <pure_gain name="ap/elevator_to_engine0">
+        <input>ap/elevator-cmd-norm</input>
+        <gain>-ap/engine-pitch-mix</gain> <!-- not sure why the sign flipped-->
+      </pure_gain>
+      <pure_gain name="ap/throttle_to_engine0">
+        <input>ap/throttle-cmd-norm</input>
+        <gain>ap/engine-thrust-mix</gain>
+      </pure_gain>
+	  <pure_gain name="ap/aileron_to_engine0"> <!--Aileron adapted from roll posts 01.08.21.04.2021-->
+        <input>ap/aileron-cmd-norm</input>
+        <gain>ap/engine-roll-mix</gain>
+      </pure_gain>
+      <summer>
+        <input>ap/elevator_to_engine0</input>
+        <input>ap/throttle_to_engine0</input>
+		<input>ap/aileron_to_engine0</input>
+        <output>fcs/throttle-pos-norm</output>
+		<clipto>
+            <min>0</min>
+            <max>1</max>
+        </clipto>
+      </summer>
+    </channel>
+
+<!-- Right Engine -->
+    <channel name="Engine1">
+      <pure_gain name="ap/elevator_to_engine1">
+        <input>ap/elevator-cmd-norm</input>
+        <gain>-ap/engine-pitch-mix</gain> <!-- not sure why the sign flipped-->
+      </pure_gain>
+      <pure_gain name="ap/throttle_to_engine1">
+        <input>ap/throttle-cmd-norm</input>
+        <gain>ap/engine-thrust-mix</gain>
+      </pure_gain>
+	  <pure_gain name="ap/aileron_to_engine1"> <!--Aileron adapted from roll posts 01.08.21.04.2021-->
+        <input>ap/aileron-cmd-norm</input>
+        <gain>-ap/engine-roll-mix</gain>
+      </pure_gain>
+      <summer>
+        <input>ap/elevator_to_engine1</input>
+        <input>ap/throttle_to_engine1</input>
+		<input>ap/aileron_to_engine1</input>
+        <output>fcs/throttle-pos-norm[1]</output>
+        <clipto>
+            <min>0</min>
+            <max>1</max>
+		</clipto>
+      </summer>
+    </channel>
+
+	<!-- Lift Fan Engine -->
+	<channel name="Engine2">
+      <pure_gain name="ap/elevator_to_engine2">
+        <input>ap/elevator-cmd-norm</input>
+        <gain>ap/engine-pitch-mix</gain> <!-- not sure why the sign flipped-->
+      </pure_gain>
+      <pure_gain name="ap/throttle_to_engine2">
+        <input>ap/throttle-cmd-norm</input>
+        <gain>ap/lift-fan-thrust-mix</gain>
+      </pure_gain>
+      <summer>
+        <input>ap/elevator_to_engine2</input>
+        <input>ap/throttle_to_engine2</input>
+        <output>fcs/throttle-pos-norm[2]</output>
+		<clipto>
+            <min>0</min>
+            <max>1</max>
+        </clipto>
+      </summer>
+    </channel>
+
+<!--This Section is experimental. I'm not sure if it does what I want-->
+
+    <channel name="Engine0_Yaw">
+      <!-- yawing engine doesn't seem to do anything in JSBSim, so no yaw control here currently-->
+      <pure_gain name="ap/rudder_to_engine0_yaw">
+        <input>ap/rudder-cmd-norm</input>
+        <gain>-ap/engine-yaw-mix</gain>
+        <output>propulsion/engine/pitch-angle-deg</output>
+        <clipto>
+            <min>-0.1</min>
+            <max>0.1</max>
+        </clipto>
+      </pure_gain>
+    </channel>
+
+    <channel name="Engine1_Yaw">
+      <!-- yawing engine doesn't seem to do anything in JSBSim, so no yaw control here currently-->
+      <pure_gain name="ap/rudder_to_engine0_yaw">
+        <input>ap/rudder-cmd-norm</input>
+        <gain>ap/engine-yaw-mix</gain>
+        <output>propulsion/engine/pitch-angle-deg</output>
+        <clipto>
+            <min>-0.1</min>
+            <max>0.1</max>
+        </clipto>
+      </pure_gain>
+    </channel>
+
+<!--
+    <channel name="Engine2">
+      <pure_gain name="ap/aileron_to_engine2">
+        <input>ap/aileron-cmd-norm</input>
+        <gain>-ap/engine-roll-mix</gain>
+      </pure_gain>
+      <pure_gain name="ap/throttle_to_engine2">
+        <input>ap/throttle-cmd-norm</input>
+        <gain>ap/lift-fan-thrust-mix</gain>
+      </pure_gain>
+      <summer>
+        <input>ap/aileron_to_engine2</input>
+        <input>ap/throttle_to_engine2</input>
+        <output>fcs/throttle-pos-norm[2]</output>
+        <clipto>
+            <min>0</min>
+            <max>1</max>
+        </clipto>
+      </summer>
+    </channel>
+
+    <channel name="Engine3">
+      <pure_gain name="ap/aileron_to_engine3">
+        <input>ap/aileron-cmd-norm</input>
+        <gain>ap/engine-roll-mix</gain>
+      </pure_gain>
+      <pure_gain name="ap/throttle_to_engine3">
+        <input>ap/throttle-cmd-norm</input>
+        <gain>ap/lift-fan-thrust-mix</gain>
+      </pure_gain>
+      <summer>
+        <input>ap/aileron_to_engine3</input>
+        <input>ap/throttle_to_engine3</input>
+        <output>fcs/throttle-pos-norm[3]</output>
+        <clipto>
+            <min>0</min>
+            <max>1</max>
+        </clipto>
+      </summer>
+    </channel>
+-->
+  </flight_control>
+  <propulsion>
+
+    <engine file="CF34-9BR">
+      <location unit="IN">
+        <x> 430 </x>
+        <y> -98.4 </y>
+        <z> -40.00 </z>
+      </location>
+      <orient unit="DEG">
+        <roll>  0.00 </roll>
+        <pitch> 0.00 </pitch>
+        <yaw>   0.00 </yaw>
+      </orient>
+      <feed>0</feed>
+      <thruster file="direct">
+        <location unit="IN">
+          <x> 430 </x>
+          <y> -98.4 </y>
+          <z> -40.00 </z>
+        </location>
+        <orient unit="DEG">
+          <roll>  0.00 </roll>
+          <pitch> 0.00 </pitch>
+          <yaw>   0.00 </yaw>
+        </orient>
+      </thruster>
+    </engine>
+
+    <engine file="CF34-9BR">
+      <location unit="IN">
+        <x> 430 </x>
+        <y> 98.4 </y>
+        <z> -40.00 </z>
+      </location>
+      <orient unit="DEG">
+        <roll>  0.00 </roll>
+        <pitch> 0.00 </pitch>
+        <yaw>   0.00 </yaw>
+      </orient>
+      <feed>0</feed>
+      <thruster file="direct">
+        <location unit="IN">
+          <x> 430 </x>
+          <y> 98.4 </y>
+          <z> -40.00 </z>
+        </location>
+        <orient unit="DEG">
+          <roll>  0.00 </roll>
+          <pitch> 0.00 </pitch>
+          <yaw>   0.00 </yaw>
+        </orient>
+      </thruster>
+    </engine>
+
+    <engine file="liftfan">
+      <location unit="FT">
+        <x> 4.92 </x>
+        <y>  0 </y>
+        <z>  0 </z>
+      </location>
+      <orient unit="DEG">
+        <roll>   0 </roll>
+        <pitch> 90 </pitch>
+        <yaw>   0 </yaw>
+      </orient>
+      <feed>0</feed>
+      <thruster file="direct">
+        <location unit="FT">
+          <x> 4.92 </x>
+          <y>  0</y>
+          <z>  0 </z>
+        </location>
+        <orient unit="DEG">
+          <roll>   0 </roll>
+          <pitch> 90 </pitch>
+          <yaw>   0 </yaw>
+        </orient>
+      </thruster>
+    </engine>
+
+    <tank type="FUEL" number="0">
+      <location unit="IN">
+        <x> 338.97 </x>
+        <y>   0.00 </y>
+        <z> -16.24 </z>
+      </location>
+      <capacity unit="LBS"> 1715.13 </capacity>
+      <contents unit="LBS"> 857.57 </contents>
+    </tank>
+
+    <tank type="FUEL" number="1">
+      <location unit="IN">
+        <x> 338.97 </x>
+        <y>   0.00 </y>
+        <z> -16.24 </z>
+      </location>
+      <capacity unit="LBS"> 1715.13 </capacity>
+      <contents unit="LBS"> 857.57 </contents>
+    </tank>
+
+    <tank type="FUEL" number="2">
+      <location unit="IN">
+        <x> 338.97 </x>
+        <y>   0.00 </y>
+        <z> -16.24 </z>
+      </location>
+      <capacity unit="LBS"> 1715.13 </capacity>
+      <contents unit="LBS"> 857.57 </contents>
+    </tank>
+
+  </propulsion>
+
+
+ <aerodynamics>
+
+  <axis name="LIFT">
+
+    <function name="aero/force/Lift_alpha">
+      <description>Lift due to alpha</description>
+      <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <table>
+            <independentVar lookup="row">aero/alpha-rad</independentVar>
+            <tableData>
+              -0.20 -0.640
+               0.00  0.080
+               0.26  1.000
+               0.60  0.448
+            </tableData>
+          </table>
+      </product>
+    </function>
+
+    <function name="aero/force/Lift_flap">
+       <description>Delta Lift due to flaps</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>fcs/flap-pos-deg</property>
+           <value> 0.01167 </value>
+       </product>
+    </function>
+
+    <function name="aero/force/Lift_speedbrake">
+       <description>Delta Lift due to speedbrake</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>fcs/speedbrake-pos-norm</property>
+           <value>0</value>
+       </product>
+    </function>
+
+    <function name="aero/force/Lift_elevator">
+       <description>Lift due to Elevator Deflection</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>fcs/elevator-pos-rad</property>
+           <value>0.2</value>
+       </product>
+    </function>
+
+
+  </axis>
+
+  <axis name="DRAG">
+
+    <function name="aero/force/Drag_basic">
+      <description>Drag at zero lift</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <table>
+          <independentVar lookup="row">aero/alpha-rad</independentVar>
+          <tableData>
+            -1.57    1.500
+            -0.26    0.031
+            0.00    0.024
+            0.26    0.031
+            1.57    1.500
+          </tableData>
+        </table>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_induced">
+      <description>Induced drag</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>aero/cl-squared</property>
+        <value>0.12</value>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_mach">
+      <description>Drag due to mach</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <table>
+          <independentVar lookup="row">velocities/mach</independentVar>
+          <tableData>
+            0.00      0.000
+            0.81      0.000
+            1.10      0.023
+            1.80      0.015
+          </tableData>
+        </table>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_flap">
+      <description>Drag due to flaps</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>fcs/flap-pos-deg</property>
+        <value> 0.00250 </value>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_gear">
+      <description>Drag due to gear</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>gear/gear-pos-norm</property>
+        <value>0.02</value>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_speedbrake">
+      <description>Drag due to speedbrakes</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>fcs/speedbrake-pos-norm</property>
+        <value>0.024</value>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_beta">
+      <description>Drag due to sideslip</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <table>
+          <independentVar lookup="row">aero/beta-rad</independentVar>
+          <tableData>
+            -1.57    1.230
+            -0.26    0.050
+            0.00    0.000
+            0.26    0.050
+            1.57    1.230
+          </tableData>
+        </table>
+      </product>
+    </function>
+
+    <function name="aero/force/Drag_elevator">
+      <description>Drag due to Elevator Deflection</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <abs>
+          <property>fcs/elevator-pos-norm</property>
+        </abs>
+        <value>0.04</value>
+      </product>
+    </function>
+
+  </axis>
+
+  <axis name="SIDE">
+
+    <function name="aero/force/Side_beta">
+      <description>Side force due to beta</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>aero/beta-rad</property>
+        <value>-1</value>
+      </product>
+    </function>
+
+  </axis>
+
+  <axis name="ROLL">
+
+    <function name="aero/moment/Roll_beta">
+      <description>Roll moment due to beta</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>aero/beta-rad</property>
+        <value>-0.1</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Roll_damp">
+      <description>Roll moment due to roll rate</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>aero/bi2vel</property>
+        <property>velocities/p-aero-rad_sec</property>
+        <value>-0.4</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Roll_yaw">
+      <description>Roll moment due to yaw rate</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>aero/bi2vel</property>
+        <property>velocities/r-aero-rad_sec</property>
+        <value>0.15</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Roll_aileron">
+      <description>Roll moment due to aileron</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>fcs/left-aileron-pos-rad</property>
+        <value>0.12</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Roll_rudder">
+      <description>Roll moment due to rudder</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>fcs/rudder-pos-rad</property>
+        <value>0.01</value>
+      </product>
+    </function>
+
+  </axis>
+
+  <axis name="PITCH">
+
+    <function name="aero/moment/Pitch_alpha">
+      <description>Pitch moment due to alpha</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/cbarw-ft</property>
+        <property>aero/alpha-rad</property>
+        <value>-0.3</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Pitch_elevator">
+      <description>Pitch moment due to elevator</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/cbarw-ft</property>
+        <property>fcs/elevator-pos-rad</property>
+        <table>
+          <independentVar lookup="row">velocities/mach</independentVar>
+          <tableData>
+            0.0     -0.800
+            2.0     -0.200
+          </tableData>
+        </table>
+      </product>
+    </function>
+
+    <function name="aero/moment/Pitch_damp">
+      <description>Pitch moment due to pitch rate</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/cbarw-ft</property>
+        <property>aero/ci2vel</property>
+        <property>velocities/q-aero-rad_sec</property>
+        <value>-18</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Pitch_alphadot">
+      <description>Pitch moment due to alpha rate</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/cbarw-ft</property>
+        <property>aero/ci2vel</property>
+        <property>aero/alphadot-rad_sec</property>
+        <value>-9</value>
+      </product>
+    </function>
+
+  </axis>
+
+  <axis name="YAW">
+
+    <function name="aero/moment/Yaw_beta">
+      <description>Yaw moment due to beta</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>aero/beta-rad</property>
+        <value>0.12</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Yaw_damp">
+      <description>Yaw moment due to yaw rate</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>aero/bi2vel</property>
+        <property>velocities/r-aero-rad_sec</property>
+        <value>-0.15</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Yaw_rudder">
+      <description>Yaw moment due to rudder</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>fcs/rudder-pos-rad</property>
+        <value>-0.1</value>
+      </product>
+    </function>
+
+    <function name="aero/moment/Yaw_aileron">
+      <description>Adverse yaw</description>
+      <product>
+        <property>aero/qbar-psf</property>
+        <property>metrics/Sw-sqft</property>
+        <property>metrics/bw-ft</property>
+        <property>fcs/left-aileron-pos-rad</property>
+        <value>0</value>
+      </product>
+    </function>
+
+  </axis>
+
+  </aerodynamics>
+
+  <external_reactions>
+  </external_reactions>
+
+</fdm_config>

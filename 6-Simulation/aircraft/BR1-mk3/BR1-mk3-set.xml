@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+	<sim>
+		<description>BR-1 (JSBSim)</description>
+		<author>Team-4, Modified from James Goppert, Modified from Petar Jedvaj, Detlef Faber, F-GTUX, Stuart Cassie and Gary Brown</author>
+		<status>0.0.0</status>
+		<startup>
+			<splash-texture>Aircraft/F-35B/Splash.png</splash-texture>
+		</startup>
+		<flight-model>jsb</flight-model>
+		<aero>F-35B-2</aero> <!-- What does this do?-->
+		<fuel-fraction>1.0</fuel-fraction>
+		<model>
+			<path>Aircraft/BR1-mk3/Models/BR1-mk3.xml</path>
+		</model>
+	</sim>
+</PropertyList>
